@@ -19,6 +19,7 @@ class CampaignPack(BaseWorld):
         self.app_svc.application.router.add_route('GET', '/campaign/agents', self._section_agent)
         self.app_svc.application.router.add_route('GET', '/campaign/profiles', self._section_profiles)
         self.app_svc.application.router.add_route('GET', '/campaign/operations', self._section_operations)
+        self.app_svc.application.router.add_route('GET', '/campaign/reports', self._section_reports)
 
     """ PRIVATE """
 
@@ -61,6 +62,13 @@ class CampaignPack(BaseWorld):
         operations = [o.display for o in await self.data_svc.locate('operations', match=access)]
         return dict(operations=operations, groups=groups, adversaries=adversaries, sources=sources, planners=planners,
                     obfuscators=obfuscators)
+
+    @check_authorization
+    @template('reports.html')
+    async def _section_reports(self, request):
+        access = dict(access=tuple(await self.auth_svc.get_permissions(request)))
+        operations = [o.display for o in await self.data_svc.locate('operations', match=access)]
+        return dict(operations=operations)
 
     """ PRIVATE """
 

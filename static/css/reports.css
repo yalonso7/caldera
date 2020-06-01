@@ -1,0 +1,43 @@
+.report-selected {
+    text-align: center;
+}
+.report-selected .row {
+    margin-top: 0;
+    border: 0;
+}
+.report-box {
+    background-color: var(--primary-background);
+    padding: 10px;
+    border-radius: 7px;
+    width: 95%;
+    margin: 7px;
+}
+.report-selected h4 {
+    margin-top: 0;
+    font-size: 20px;
+    color: var(--font-color);
+}
+.report-header {
+    /*border-bottom: 2px solid var(--theme-color);*/
+    padding: 2px;
+    border-radius: 7px;
+    background-color: var(--navbar-color);
+}
+.report-box table {
+    border-collapse: collapse;
+    width: 100%;
+    color: var(--font-color);
+}
+.report-box td, th {
+  text-align: left;
+  padding: 8px;
+}
+
+.report-thin td {
+    text-align: left;
+    padding: 2px;
+}
+
+.report-thin .thin-center {
+    text-align: center;
+}

@@ -1,0 +1,74 @@
+<link rel="stylesheet" href="/gui/css/reports.css">
+
+<div id="reports" class="section-profile">
+    <div class="row">
+        <div class="topleft duk-icon"><img onclick="removeSection('reports')" src="/gui/img/x.png"></div>
+        <div class="bottomright duk-icon"><img onclick="toggleSidebar('reports-sidebar')" src="/gui/img/expand.png"></div>
+        <div id="reports-sidebar" class="column section-border" style="flex:25%;">
+          <img src="/gui/img/reports.png">
+          <h4>Reports</h4>
+          <br>
+          <p class="section-description" style="text-align:center;">
+            Select an operation to view its report.
+          </p>
+          <div id="viewReport">
+            <select id="report-list" style="margin-bottom: 15px;" onchange="showReports()">
+              <option id="reportDefault" value="" disabled selected>Operations</option>
+              {% for op in operations %}
+                    {%  if op.start|length%}
+                        <option class="reportOption" id="{{ op.id }}-{{ op.name }}" value="{{ op.id }}">{{ op.name }} - {{ op.start }}</option>
+                    {% endif %}
+              {% endfor %}
+            </select>
+            <br>
+          </div>
+        </div>
+
+        <div class="column report-selected" style="flex:75%;visibility:hidden;">
+            <div class="row">
+                <div class="column report-box" style="flex:33.33%">
+                    <p class="report-header">Name</p>
+                    <h4 id="report-name"></h4>
+                    <p id="report-name-duration"></p>
+                </div>
+                <div class="column report-box" style="flex:33.33%">
+                    <p class="report-header">Adversary</p>
+                    <h4 id="report-adversary"></h4>
+                    <p id="report-adversary-desc"></p>
+                </div>
+                <div class="column report-box" style="flex:33.33%">
+                    <p class="report-header">Group</p>
+                    <h4 id="report-group"></h4>
+                    <p id="report-group-cnt"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column report-box" style="flex:100%;">
+                    <p class="report-header">Steps</p>
+                    <table id="report-steps" align="center" border=1 frame=void rules=rows>
+                        <th>Status</th>
+                        <th>Host</th>
+                        <th>Ability</th>
+                        <th>Technique</th>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column report-box" style="flex:100%;">
+                    <p class="report-header">facts</p>
+                    <table id="report-facts" align="center" border=1 frame=void rules=rows>
+                        <th>Property</th>
+                        <th>Values</th>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+      </div>
+
+    </div>
+</div>
+
+<script src="/gui/js/reports.js"></script>
