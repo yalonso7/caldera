@@ -113,6 +113,8 @@ class FileSvc(FileServiceInterface, BaseService):
         env = copy.copy(os.environ)
         env['GOARCH'] = arch
         env['GOOS'] = platform
+        if arch is 'arm':
+            env['GOARM'] = 5
         if cflags:
             for cflag in cflags.split(' '):
                 name, value = cflag.split('=')
