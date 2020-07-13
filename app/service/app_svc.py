@@ -110,12 +110,13 @@ class AppService(AppServiceInterface, BaseService):
         templates.append('templates')
         aiohttp_jinja2.setup(self.application, loader=jinja2.FileSystemLoader(templates))
 
-    async def retrieve_compiled_file(self, name, platform):
-        _, path = await self._services.get('file_svc').find_file_path('%s-%s' % (name, platform))
+    async def retrieve_compiled_file(self, name, platform, architecture=None):
+        filename = '-'.join([v for v in [name, platform, architecture] if v])
+        _, path = await self._services.get('file_svc').find_file_path(filename)
         signature = hashlib.sha256(open(path, 'rb').read()).hexdigest()
         display_name = await self._services.get('contact_svc').build_filename()
         self.log.debug('%s downloaded with hash=%s and name=%s' % (name, signature, display_name))
-        return '%s-%s' % (name, platform), display_name
+        return filename, display_name
 
     async def teardown(self, main_config_file='default'):
         await self._destroy_plugins()
